@@ -19,7 +19,7 @@
 	  <artifactId>giants-web</artifactId>
 	</dependency>
 	<dependency>
-      <groupId>com.giants</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>giants-common</artifactId>
     </dependency>
 	<dependency>

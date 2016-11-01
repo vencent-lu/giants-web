@@ -136,7 +136,7 @@
 		
 		<!-- 依赖库 -->
 		<dependency>
-		  <groupId>com.giants</groupId>
+		  <groupId>${project.groupId}</groupId>
 		  <artifactId>giants-common</artifactId>
 		  <version>1.0.3</version>
 		</dependency>
