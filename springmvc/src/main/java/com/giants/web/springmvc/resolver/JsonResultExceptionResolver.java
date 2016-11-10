@@ -39,7 +39,9 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
-	private List<HttpMessageConverter<?>> messageConverters;
+	private List<HttpMessageConverter<Object>> messageConverters;
+	
+	private boolean includeModelAndView = false;
 	
 	private ResourceBundleMessageSource resourceBundleMessageSource;
 
@@ -51,39 +53,43 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 			HttpServletResponse response, Object handler, Exception ex) {
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		Method method = handlerMethod.getMethod();
-		ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(method, ResponseBody.class);
-		if (responseBodyAnn != null) {
-			if (this.resourceBundleMessageSource == null) {
-				this.resourceBundleMessageSource = WebApplicationContextUtils
-						.getWebApplicationContext(request.getServletContext())
-						.getBean(ResourceBundleMessageSource.class);
-			}
-			JsonResult result = BuildExceptionJsonResult.build(ex,this.resourceBundleMessageSource,WebUtils.getRequest().getLocale());
-			HttpInputMessage inputMessage = new ServletServerHttpRequest(request);  
-	        List<MediaType> acceptedMediaTypes = inputMessage.getHeaders().getAccept();  
-	        if (acceptedMediaTypes.isEmpty()) {  
-	            acceptedMediaTypes = Collections.singletonList(MediaType.ALL);  
-	        }  
-	        MediaType.sortByQualityValue(acceptedMediaTypes);  
-	        HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);  
-	        Class<?> returnValueType = result.getClass();
-	        if (this.messageConverters != null) {  
+		if (this.includeModelAndView
+				|| AnnotationUtils.findAnnotation(method, ResponseBody.class) != null) {
+	        if (this.messageConverters != null) {
+	        	if (this.resourceBundleMessageSource == null) {
+					this.resourceBundleMessageSource = WebApplicationContextUtils
+							.getWebApplicationContext(request.getServletContext())
+							.getBean(ResourceBundleMessageSource.class);
+				}
+	        	JsonResult result = BuildExceptionJsonResult.build(ex,this.resourceBundleMessageSource,WebUtils.getRequest().getLocale());
+				HttpInputMessage inputMessage = new ServletServerHttpRequest(request);  
+		        List<MediaType> acceptedMediaTypes = inputMessage.getHeaders().getAccept();  
+		        if (acceptedMediaTypes.isEmpty()) {  
+		            acceptedMediaTypes = Collections.singletonList(MediaType.ALL);
+		        }  
+		        MediaType.sortByQualityValue(acceptedMediaTypes);  
+		        HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);  
+		        Class<?> returnValueType = result.getClass();
 	            for (MediaType acceptedMediaType : acceptedMediaTypes) {
-	                for (HttpMessageConverter messageConverter : this.messageConverters) {  
-	                    if (messageConverter.canWrite(returnValueType, acceptedMediaType)) {  
+	                for (HttpMessageConverter<Object> messageConverter : this.messageConverters) {  
+	                    if (messageConverter.canWrite(returnValueType, acceptedMediaType)) {
 	                        try {
 								messageConverter.write(result, acceptedMediaType, outputMessage);
 							} catch (Exception e) {
 								e.printStackTrace();
 								logger.error("HttpMessageConverter Error!", e);
 							}
-							return new ModelAndView();
+	                        try {
+								outputMessage.getBody().flush();
+								return new ModelAndView();
+							} catch (IOException e) {
+							}
 	                    }  
 	                }  
 	            }  
 	        }  
 	        if (logger.isWarnEnabled()) {  
-	            logger.warn("Could not find HttpMessageConverter that supports return type [" + returnValueType + "] and " + acceptedMediaTypes);  
+	            logger.warn("Could not find HttpMessageConverter that supports return type [ com.giants.web.springmvc.json.JsonResult ]");  
 	        }
 		}
 		
@@ -93,8 +99,16 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 	/**
 	 * @param messageConverters the messageConverters to set
 	 */
-	public void setMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
+	public void setMessageConverters(List<HttpMessageConverter<Object>> messageConverters) {
 		this.messageConverters = messageConverters;
+	}
+
+	public boolean isIncludeModelAndView() {
+		return includeModelAndView;
+	}
+
+	public void setIncludeModelAndView(boolean includeModelAndView) {
+		this.includeModelAndView = includeModelAndView;
 	}
 	
 	
