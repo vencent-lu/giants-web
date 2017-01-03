@@ -4,7 +4,7 @@
   
   <groupId>com.github.vencent-lu</groupId>
   <artifactId>giants-web-parent</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5-Beta-1</version>
   <packaging>pom</packaging>
   
   <name>giants-web-parent</name>
@@ -164,7 +164,7 @@
 		<dependency>
 		  <groupId>com.alibaba</groupId>
 		  <artifactId>fastjson</artifactId>
-		  <version>1.2.10</version>
+		  <version>1.2.22</version>
 		  <optional>true</optional>
 		</dependency>
 		<dependency>

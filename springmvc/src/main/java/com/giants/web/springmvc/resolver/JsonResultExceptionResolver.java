@@ -4,7 +4,6 @@
 package com.giants.web.springmvc.resolver;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,10 +50,17 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		Method method = handlerMethod.getMethod();
-		if (this.includeModelAndView
-				|| AnnotationUtils.findAnnotation(method, ResponseBody.class) != null) {
+		boolean isReturnJson = false;
+		if (this.includeModelAndView) {
+			isReturnJson = true;
+		} else if (handler != null
+				&& AnnotationUtils.findAnnotation(
+						((HandlerMethod) handler).getMethod(),
+						ResponseBody.class) != null) {
+			isReturnJson = true;
+		}
+		
+		if (isReturnJson) {
 	        if (this.messageConverters != null) {
 	        	if (this.resourceBundleMessageSource == null) {
 					this.resourceBundleMessageSource = WebApplicationContextUtils
