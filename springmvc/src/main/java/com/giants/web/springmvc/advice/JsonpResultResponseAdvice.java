@@ -3,8 +3,6 @@
  */
 package com.giants.web.springmvc.advice;
 
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -18,13 +16,16 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import com.giants.common.regex.Pattern;
 import com.giants.web.springmvc.json.FastJsonHttpMessageConverter;
 import com.giants.web.springmvc.json.JsonpResult;
 
 /**
  * @author vencent.lu
  * 支持jsonp格式返回数据(配置spring mvc config)
+ * 不推荐使用这个类 jsonp 相关功能已经合并到 @JsonResultResponseAdvice
  */
+@Deprecated
 public class JsonpResultResponseAdvice implements ResponseBodyAdvice<Object> {
 	
 	private static final Logger   logger = LoggerFactory.getLogger(JsonpResultResponseAdvice.class);	
@@ -41,7 +42,7 @@ public class JsonpResultResponseAdvice implements ResponseBodyAdvice<Object> {
 	}
 	
 	protected boolean isValidJsonpQueryParam(String value) {
-		return CALLBACK_PARAM_PATTERN.matcher(value).matches();
+		return CALLBACK_PARAM_PATTERN.matches(value);
 	}
 	
 	protected MediaType getContentType(MediaType contentType, ServerHttpRequest request, ServerHttpResponse response) {

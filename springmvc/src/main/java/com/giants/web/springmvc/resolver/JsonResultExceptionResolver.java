@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -26,8 +27,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.giants.common.regex.Pattern;
 import com.giants.web.springmvc.exception.BuildExceptionJsonResult;
-import com.giants.web.springmvc.json.JsonResult;
+import com.giants.web.springmvc.json.JsonpResult;
 import com.giants.web.utils.WebUtils;
 
 /**
@@ -36,7 +38,9 @@ import com.giants.web.utils.WebUtils;
  */
 public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 	
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Pattern CALLBACK_PARAM_PATTERN = Pattern.compile("[0-9A-Za-z_\\.]*");
+    protected final Logger logger = LoggerFactory.getLogger(getClass());    
+    private String[] jsonpQueryParamNames;
 	
 	private List<HttpMessageConverter<Object>> messageConverters;
 	
@@ -67,14 +71,33 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 							.getWebApplicationContext(request.getServletContext())
 							.getBean(ResourceBundleMessageSource.class);
 				}
-	        	JsonResult result = BuildExceptionJsonResult.build(ex,this.resourceBundleMessageSource,WebUtils.getRequest().getLocale());
+	        	Object result = BuildExceptionJsonResult.build(ex,this.resourceBundleMessageSource,WebUtils.getRequest().getLocale());
+	        	HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
+	        	if (ArrayUtils.isNotEmpty(this.jsonpQueryParamNames)) {
+	                for (String name : this.jsonpQueryParamNames) {
+	                    String value = request.getParameter(name);
+	                    if (value != null) {
+	                        if (!CALLBACK_PARAM_PATTERN.matches(value)) {
+	                            if (logger.isDebugEnabled()) {
+	                                logger.debug("Ignoring invalid jsonp parameter value: " + value);
+	                            }
+	                            continue;
+	                        }
+	                        MediaType contentTypeToUse = new MediaType("application", "javascript");
+	                        outputMessage.getHeaders().setContentType(contentTypeToUse);
+	                        JsonpResult jsonpResult = new JsonpResult();
+	                        jsonpResult.setJsonpFunction(value);
+	                        jsonpResult.setValue(result);
+	                        result = jsonpResult;
+	                    }
+	                }
+	            }	        	
 				HttpInputMessage inputMessage = new ServletServerHttpRequest(request);  
 		        List<MediaType> acceptedMediaTypes = inputMessage.getHeaders().getAccept();  
 		        if (acceptedMediaTypes.isEmpty()) {  
 		            acceptedMediaTypes = Collections.singletonList(MediaType.ALL);
 		        }  
-		        MediaType.sortByQualityValue(acceptedMediaTypes);  
-		        HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);  
+		        MediaType.sortByQualityValue(acceptedMediaTypes);		        
 		        Class<?> returnValueType = result.getClass();
 	            for (MediaType acceptedMediaType : acceptedMediaTypes) {
 	                for (HttpMessageConverter<Object> messageConverter : this.messageConverters) {  
@@ -117,6 +140,12 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 		this.includeModelAndView = includeModelAndView;
 	}
 	
-	
+	public void setJsonpQueryParamName(String jsonpQueryParamName) {
+        this.jsonpQueryParamNames = new String[]{jsonpQueryParamName};
+    }
+
+    public void setJsonpQueryParamNames(String... jsonpQueryParamNames) {
+        this.jsonpQueryParamNames = jsonpQueryParamNames;
+    }
 
 }

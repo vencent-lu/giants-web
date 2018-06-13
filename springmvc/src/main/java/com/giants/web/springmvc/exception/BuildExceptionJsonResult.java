@@ -48,6 +48,7 @@ public class BuildExceptionJsonResult {
 				result.setMessage(getMessage(resource, ge.getErrorMessageKey(), locale, 
 						ge	.getMessageArgs() == null ? null : ge.getMessageArgs()));
 			}
+			result.setData(ge.getErrorData());
 			if (e instanceof DataValidationException) {
 				DataValidationException dve = (DataValidationException) e;
 				if (CollectionUtils.isNotEmpty(dve.getFieldErrors())) {

@@ -4,7 +4,7 @@
   
   <groupId>com.github.vencent-lu</groupId>
   <artifactId>giants-web-parent</artifactId>
-  <version>1.0.5</version>
+  <version>1.1.1</version>
   <packaging>pom</packaging>
   
   <name>giants-web-parent</name>
@@ -138,7 +138,7 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>giants-common</artifactId>
-		  <version>1.0.4</version>
+		  <version>1.0.8</version>
 		</dependency>
 		<dependency>
 		  <groupId>commons-lang</groupId>
