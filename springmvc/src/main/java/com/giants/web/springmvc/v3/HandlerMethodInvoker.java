@@ -86,8 +86,7 @@ import org.springframework.web.multipart.MultipartRequest;
  * Support class for invoking an annotated handler method. Operates on the introspection results of a {@link
  * HandlerMethodResolver} for a specific handler type.
  *
- * <p>Used by {@link org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter} and {@link
- * org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter}.
+ * <p>Used by {@link org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter} .
  *
  * @author Juergen Hoeller
  * @author Arjen Poutsma
@@ -613,6 +612,11 @@ public class HandlerMethodInvoker {
 
 	/**
 	 * Resolves the given {@link RequestBody @RequestBody} annotation.
+	 * @param methodParam methodParam
+	 * @param webRequest webRequest
+	 * @param handler handler
+	 * @throws Exception Exception
+	 * @return Object
 	 */
 	protected Object resolveRequestBody(MethodParameter methodParam, NativeWebRequest webRequest, Object handler)
 			throws Exception {
@@ -708,6 +712,11 @@ public class HandlerMethodInvoker {
 	/**
 	 * Resolves the given {@link CookieValue @CookieValue} annotation.
 	 * <p>Throws an UnsupportedOperationException by default.
+	 * @param cookieName cookie name
+	 * @param paramType param type
+	 * @param webRequest web request
+	 * @throws Exception Exception
+	 * @return Object
 	 */
 	protected Object resolveCookieValue(String cookieName, Class paramType, NativeWebRequest webRequest)
 			throws Exception {
@@ -731,6 +740,11 @@ public class HandlerMethodInvoker {
 	/**
 	 * Resolves the given {@link PathVariable @PathVariable} annotation.
 	 * <p>Throws an UnsupportedOperationException by default.
+	 * @param pathVarName path var name
+	 * @param paramType param type
+	 * @param webRequest web request
+	 * @throws Exception exception
+	 * @return String
 	 */
 	protected String resolvePathVariable(String pathVarName, Class paramType, NativeWebRequest webRequest)
 			throws Exception {
@@ -793,6 +807,8 @@ public class HandlerMethodInvoker {
 	/**
 	 * Determine whether the given value qualifies as a "binding candidate", i.e. might potentially be subject to
 	 * bean-style data binding later on.
+	 * @param value object
+	 * @return boolean
 	 */
 	protected boolean isBindingCandidate(Object value) {
 		return (value != null && !value.getClass().isArray() && !(value instanceof Collection) &&
@@ -857,6 +873,9 @@ public class HandlerMethodInvoker {
 	/**
 	 * Return a {@link HttpInputMessage} for the given {@link NativeWebRequest}.
 	 * <p>Throws an UnsupportedOperation1Exception by default.
+	 * @param webRequest web request
+	 * @throws  Exception Exception
+	 * @return HttpInputMessage
 	 */
 	protected HttpInputMessage createHttpInputMessage(NativeWebRequest webRequest) throws Exception {
 		throw new UnsupportedOperationException("@RequestBody not supported");
@@ -865,6 +884,9 @@ public class HandlerMethodInvoker {
 	/**
 	 * Return a {@link HttpOutputMessage} for the given {@link NativeWebRequest}.
 	 * <p>Throws an UnsupportedOperationException by default.
+	 * @param webRequest web request
+	 * @throws  Exception Exception
+	 * @return HttpOutputMessage
 	 */
 	protected HttpOutputMessage createHttpOutputMessage(NativeWebRequest webRequest) throws Exception {
 		throw new UnsupportedOperationException("@Body not supported");

@@ -32,6 +32,7 @@ public class WebUtils {
 	
 	/**
 	 * 取得HttpRequest的简化函数.
+     * @return HttpServletRequest
 	 */
 	public static HttpServletRequest getRequest() {
 	    if(ActionContext.getContext() != null) {
@@ -42,9 +43,8 @@ public class WebUtils {
 	
 	/**
      * 获取客户端真实IP
-     * 
-     * @param req
-     * @return
+     *
+     * @return String
      */
     public static String getRemoteAddr() {
     	HttpServletRequest request = getRequest();

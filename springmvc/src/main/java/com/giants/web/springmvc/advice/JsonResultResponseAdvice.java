@@ -22,7 +22,6 @@ import com.giants.common.GiantsConstants;
 import com.giants.common.regex.Pattern;
 import com.giants.web.springmvc.json.JsonResult;
 import com.giants.web.springmvc.json.JsonpResult;
-import com.giants.web.utils.WebUtils;
 
 /**
  * @author vencent.lu
@@ -47,17 +46,17 @@ public class JsonResultResponseAdvice implements ResponseBodyAdvice<Object> {
 			MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType,
 			ServerHttpRequest request, ServerHttpResponse response) {
+		HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
 		if (this.resourceBundleMessageSource == null) {
 			this.resourceBundleMessageSource = WebApplicationContextUtils
-					.getWebApplicationContext(WebUtils.getRequest().getServletContext())
+					.getWebApplicationContext(servletRequest.getServletContext())
 					.getBean(ResourceBundleMessageSource.class);
 		}
 		JsonResult result = new JsonResult();
 		result.setData(body);
 		result.setCode(GiantsConstants.ERROR_CODE_SUCCESS);
-		result.setMessage(this.resourceBundleMessageSource.getMessage("operation.success", null, WebUtils.getRequest().getLocale()));
+		result.setMessage(this.resourceBundleMessageSource.getMessage("operation.success", null, servletRequest.getLocale()));
 		if (ArrayUtils.isNotEmpty(this.jsonpQueryParamNames)) {
-		    HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
 		    for (String name : this.jsonpQueryParamNames) {
 	            String value = servletRequest.getParameter(name);
 	            if (value != null) {

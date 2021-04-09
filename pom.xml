@@ -4,7 +4,7 @@
   
   <groupId>com.github.vencent-lu</groupId>
   <artifactId>giants-web-parent</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <packaging>pom</packaging>
   
   <name>giants-web-parent</name>
@@ -109,8 +109,8 @@
     <project-name>giants-web-parent</project-name>
 
     <!-- 依赖库版本定义 -->
-	<struts2.version>2.2.3.1</struts2.version>
-	<spring.version>4.2.5.RELEASE</spring.version>
+	<struts2.version>2.3.34</struts2.version>
+	<spring.version>4.3.17.RELEASE</spring.version>
         
     <!-- Plugin的属性定义 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -138,18 +138,13 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>giants-common</artifactId>
-		  <version>1.0.8</version>
+		  <version>1.1.0</version>
 		</dependency>
 		<dependency>
 		  <groupId>commons-lang</groupId>
 		  <artifactId>commons-lang</artifactId>
 		  <version>2.6</version>
-		</dependency>	
-		<dependency>
-		  <groupId>commons-collections</groupId>
-		  <artifactId>commons-collections</artifactId>
-		  <version>3.2.1</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 		  <groupId>org.slf4j</groupId>
 		  <artifactId>slf4j-api</artifactId>
@@ -164,7 +159,7 @@
 		<dependency>
 		  <groupId>com.alibaba</groupId>
 		  <artifactId>fastjson</artifactId>
-		  <version>1.2.22</version>
+		  <version>1.2.76</version>
 		  <optional>true</optional>
 		</dependency>
 		<dependency>

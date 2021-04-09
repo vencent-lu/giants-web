@@ -6,6 +6,7 @@ package com.giants.web.springmvc.resolver;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.giants.common.regex.Pattern;
 import com.giants.web.springmvc.exception.BuildExceptionJsonResult;
 import com.giants.web.springmvc.json.JsonpResult;
-import com.giants.web.utils.WebUtils;
 
 /**
  * @author vencent.lu
@@ -71,7 +71,7 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 							.getWebApplicationContext(request.getServletContext())
 							.getBean(ResourceBundleMessageSource.class);
 				}
-	        	Object result = BuildExceptionJsonResult.build(ex,this.resourceBundleMessageSource,WebUtils.getRequest().getLocale());
+	        	Object result = BuildExceptionJsonResult.build(ex,this.resourceBundleMessageSource,request.getLocale());
 	        	HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
 	        	if (ArrayUtils.isNotEmpty(this.jsonpQueryParamNames)) {
 	                for (String name : this.jsonpQueryParamNames) {

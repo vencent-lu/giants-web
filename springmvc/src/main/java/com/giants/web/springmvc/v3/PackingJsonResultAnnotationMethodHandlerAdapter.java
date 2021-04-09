@@ -221,6 +221,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * (that is, in the case of a ".../*" servlet mapping in web.xml).
 	 * <p>Default is "false".
 	 * @see org.springframework.web.util.UrlPathHelper#setAlwaysUseFullPath
+	 * @param alwaysUseFullPath always use full path
 	 */
 	public void setAlwaysUseFullPath(boolean alwaysUseFullPath) {
 		this.urlPathHelper.setAlwaysUseFullPath(alwaysUseFullPath);
@@ -232,6 +233,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * <p>Uses either the request encoding or the default encoding according
 	 * to the Servlet spec (ISO-8859-1).
 	 * @see org.springframework.web.util.UrlPathHelper#setUrlDecode
+	 * @param urlDecode url decode
 	 */
 	public void setUrlDecode(boolean urlDecode) {
 		this.urlPathHelper.setUrlDecode(urlDecode);
@@ -241,6 +243,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Set the UrlPathHelper to use for resolution of lookup paths.
 	 * <p>Use this to override the default UrlPathHelper with a custom subclass,
 	 * or to share common UrlPathHelper settings across multiple HandlerMappings and HandlerAdapters.
+	 * @param urlPathHelper url path helper
 	 */
 	public void setUrlPathHelper(UrlPathHelper urlPathHelper) {
 		Assert.notNull(urlPathHelper, "UrlPathHelper must not be null");
@@ -250,6 +253,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	/**
 	 * Set the PathMatcher implementation to use for matching URL paths against registered URL patterns.
 	 * <p>Default is {@link org.springframework.util.AntPathMatcher}.
+	 * @param pathMatcher path matcher
 	 */
 	public void setPathMatcher(PathMatcher pathMatcher) {
 		Assert.notNull(pathMatcher, "PathMatcher must not be null");
@@ -261,6 +265,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * (carrying an empty <code>@RequestMapping</code> annotation).
 	 * <p>Will only kick in when the handler method cannot be resolved uniquely
 	 * through the annotation metadata already.
+	 * @param methodNameResolver method name resolver
 	 */
 	public void setMethodNameResolver(MethodNameResolver methodNameResolver) {
 		this.methodNameResolver = methodNameResolver;
@@ -269,6 +274,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	/**
 	 * Specify a WebBindingInitializer which will apply pre-configured
 	 * configuration to every DataBinder that this controller uses.
+	 * @param webBindingInitializer web binding initializer
 	 */
 	public void setWebBindingInitializer(WebBindingInitializer webBindingInitializer) {
 		this.webBindingInitializer = webBindingInitializer;
@@ -278,6 +284,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Specify the strategy to store session attributes with.
 	 * <p>Default is {@link org.springframework.web.bind.support.DefaultSessionAttributeStore},
 	 * storing session attributes in the HttpSession, using the same attribute name as in the model.
+	 * @param sessionAttributeStore session attribute store
 	 */
 	public void setSessionAttributeStore(SessionAttributeStore sessionAttributeStore) {
 		Assert.notNull(sessionAttributeStore, "SessionAttributeStore must not be null");
@@ -292,6 +299,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * apply to <code>@SessionAttributes</code> annotated handlers only.
 	 * @see #setCacheSeconds
 	 * @see org.springframework.web.bind.annotation.SessionAttributes
+	 * @param cacheSecondsForSessionAttributeHandlers cacheSecondsForSessionAttributeHandlers
 	 */
 	public void setCacheSecondsForSessionAttributeHandlers(int cacheSecondsForSessionAttributeHandlers) {
 		this.cacheSecondsForSessionAttributeHandlers = cacheSecondsForSessionAttributeHandlers;
@@ -314,6 +322,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * different servlet containers; the only 100% safe way is a session mutex.
 	 * @see org.springframework.web.util.HttpSessionMutexListener
 	 * @see org.springframework.web.util.WebUtils#getSessionMutex(javax.servlet.http.HttpSession)
+	 * @param synchronizeOnSession synchronizeOnSession
 	 */
 	public void setSynchronizeOnSession(boolean synchronizeOnSession) {
 		this.synchronizeOnSession = synchronizeOnSession;
@@ -323,6 +332,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Set the ParameterNameDiscoverer to use for resolving method parameter names if needed
 	 * (e.g. for default attribute names).
 	 * <p>Default is a {@link org.springframework.core.LocalVariableTableParameterNameDiscoverer}.
+	 * @param parameterNameDiscoverer parameterNameDiscoverer
 	 */
 	public void setParameterNameDiscoverer(ParameterNameDiscoverer parameterNameDiscoverer) {
 		this.parameterNameDiscoverer = parameterNameDiscoverer;
@@ -332,6 +342,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Set a custom WebArgumentResolvers to use for special method parameter types.
 	 * <p>Such a custom WebArgumentResolver will kick in first, having a chance to resolve
 	 * an argument value before the standard argument handling kicks in.
+	 * @param argumentResolver argumentResolver
 	 */
 	public void setCustomArgumentResolver(WebArgumentResolver argumentResolver) {
 		this.customArgumentResolvers = new WebArgumentResolver[] {argumentResolver};
@@ -341,6 +352,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Set one or more custom WebArgumentResolvers to use for special method parameter types.
 	 * <p>Any such custom WebArgumentResolver will kick in first, having a chance to resolve
 	 * an argument value before the standard argument handling kicks in.
+	 * @param argumentResolvers argumentResolvers
 	 */
 	public void setCustomArgumentResolvers(WebArgumentResolver[] argumentResolvers) {
 		this.customArgumentResolvers = argumentResolvers;
@@ -350,6 +362,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Set a custom ModelAndViewResolvers to use for special method return types.
 	 * <p>Such a custom ModelAndViewResolver will kick in first, having a chance to resolve
 	 * a return value before the standard ModelAndView handling kicks in.
+	 * @param customModelAndViewResolver customModelAndViewResolver
 	 */
 	public void setCustomModelAndViewResolver(ModelAndViewResolver customModelAndViewResolver) {
 		this.customModelAndViewResolvers = new ModelAndViewResolver[] {customModelAndViewResolver};
@@ -359,6 +372,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Set one or more custom ModelAndViewResolvers to use for special method return types.
 	 * <p>Any such custom ModelAndViewResolver will kick in first, having a chance to resolve
 	 * a return value before the standard ModelAndView handling kicks in.
+	 * @param customModelAndViewResolvers customModelAndViewResolvers
 	 */
 	public void setCustomModelAndViewResolvers(ModelAndViewResolver[] customModelAndViewResolvers) {
 		this.customModelAndViewResolvers = customModelAndViewResolvers;
@@ -367,6 +381,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	/**
 	 * Set the message body converters to use.
 	 * <p>These converters are used to convert from and to HTTP requests and responses.
+	 * @param messageConverters messageConverters
 	 */
 	public void setMessageConverters(HttpMessageConverter<?>[] messageConverters) {
 		this.messageConverters = messageConverters;
@@ -374,6 +389,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 
 	/**
 	 * Return the message body converters that this adapter has been configured with.
+	 * @return HttpMessageConverter array
 	 */
 	public HttpMessageConverter<?>[] getMessageConverters() {
 		return messageConverters;
@@ -383,6 +399,7 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	 * Specify the order value for this HandlerAdapter bean.
 	 * <p>Default value is <code>Integer.MAX_VALUE</code>, meaning that it's non-ordered.
 	 * @see org.springframework.core.Ordered#getOrder()
+	 * @param order order
 	 */
 	public void setOrder(int order) {
 		this.order = order;
@@ -510,10 +527,13 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 	/**
 	 * This method always returns -1 since an annotated controller can have many methods,
 	 * each requiring separate lastModified calculations. Instead, an
-	 * @{@link RequestMapping}-annotated method can calculate the lastModified value, call
+	 * {@link RequestMapping}-annotated method can calculate the lastModified value, call
 	 * {@link org.springframework.web.context.request.WebRequest#checkNotModified(long)}
 	 * to check it, and return {@code null} if that returns {@code true}.
 	 * @see org.springframework.web.context.request.WebRequest#checkNotModified(long)
+	 * @param request request
+	 * @param handler handler
+	 * @return long
 	 */
 	public long getLastModified(HttpServletRequest request, Object handler) {
 		return -1;
@@ -522,6 +542,8 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 
 	/**
 	 * Build a HandlerMethodResolver for the given handler type.
+	 * @param handler handler
+	 * @return  ServletHandlerMethodResolver
 	 */
 	private ServletHandlerMethodResolver getMethodResolver(Object handler) {
 		Class handlerClass = ClassUtils.getUserClass(handler);
@@ -752,6 +774,10 @@ public class PackingJsonResultAnnotationMethodHandlerAdapter extends WebContentG
 		 * in the request, it is combined with the method-level pattern.</li>
 		 * <li>Otherwise, the method-level pattern is returned.</li>
 		 * </ol>
+		 * @param methodLevelPattern methodLevelPattern
+		 * @param lookupPath lookupPath
+		 * @param request request
+		 * @return String
 		 */
 		private String getCombinedPattern(String methodLevelPattern, String lookupPath, HttpServletRequest request) {
 			if (useTypeLevelMapping(request)) {
