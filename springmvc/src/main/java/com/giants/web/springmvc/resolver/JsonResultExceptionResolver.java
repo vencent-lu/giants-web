@@ -22,6 +22,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -57,12 +58,12 @@ public class JsonResultExceptionResolver implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 		boolean isReturnJson = false;
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		if (this.includeModelAndView) {
 			isReturnJson = true;
 		} else if (handler != null
-				&& AnnotationUtils.findAnnotation(
-						((HandlerMethod) handler).getMethod(),
-						ResponseBody.class) != null) {
+				&& (AnnotationUtils.findAnnotation(handlerMethod.getBeanType(), RestController.class) != null
+				|| AnnotationUtils.findAnnotation(handlerMethod.getMethod(), ResponseBody.class) != null)) {
 			isReturnJson = true;
 		}
 		
