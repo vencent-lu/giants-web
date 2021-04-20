@@ -4,6 +4,7 @@
 package com.giants.web.springmvc.advice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -47,6 +49,7 @@ public class JsonResultResponseAdvice implements ResponseBodyAdvice<Object> {
 			Class<? extends HttpMessageConverter<?>> selectedConverterType,
 			ServerHttpRequest request, ServerHttpResponse response) {
 		HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
+		HttpServletResponse servletResponse = ((ServletServerHttpResponse)response).getServletResponse();
 		if (this.resourceBundleMessageSource == null) {
 			this.resourceBundleMessageSource = WebApplicationContextUtils
 					.getWebApplicationContext(servletRequest.getServletContext())
@@ -54,8 +57,13 @@ public class JsonResultResponseAdvice implements ResponseBodyAdvice<Object> {
 		}
 		JsonResult result = new JsonResult();
 		result.setData(body);
-		result.setCode(GiantsConstants.ERROR_CODE_SUCCESS);
-		result.setMessage(this.resourceBundleMessageSource.getMessage("operation.success", null, servletRequest.getLocale()));
+		if (servletResponse.getStatus() == 200) {
+			result.setCode(GiantsConstants.ERROR_CODE_SUCCESS);
+			result.setMessage(this.resourceBundleMessageSource.getMessage("operation.success", null, servletRequest.getLocale()));
+		} else {
+			result.setCode(GiantsConstants.ERROR_CODE_SYSTEM_ERROR);
+			result.setMessage(this.resourceBundleMessageSource.getMessage("operation.systemerror", null, servletRequest.getLocale()));
+		}
 		if (ArrayUtils.isNotEmpty(this.jsonpQueryParamNames)) {
 		    for (String name : this.jsonpQueryParamNames) {
 	            String value = servletRequest.getParameter(name);
