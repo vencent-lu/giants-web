@@ -4,7 +4,7 @@
   
   <groupId>com.github.vencent-lu</groupId>
   <artifactId>giants-web-parent</artifactId>
-  <version>1.1.6</version>
+  <version>1.1.7</version>
   <packaging>pom</packaging>
   
   <name>giants-web-parent</name>
@@ -133,86 +133,93 @@
 			<artifactId>giants-web-struts2</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<!-- 依赖库 -->
 		<dependency>
-		  <groupId>${project.groupId}</groupId>
-		  <artifactId>giants-common</artifactId>
-		  <version>1.1.0</version>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>giants-common</artifactId>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
-		  <groupId>commons-lang</groupId>
-		  <artifactId>commons-lang</artifactId>
-		  <version>2.6</version>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.slf4j</groupId>
-		  <artifactId>slf4j-api</artifactId>
-		  <version>1.6.6</version>
-		</dependency>      
-		<dependency>
-		  <groupId>javax.servlet</groupId>
-		  <artifactId>javax.servlet-api</artifactId>
-		  <version>3.0.1</version>
-		  <scope>provided</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.6</version>
 		</dependency>
 		<dependency>
-		  <groupId>com.alibaba</groupId>
-		  <artifactId>fastjson</artifactId>
-		  <version>1.2.76</version>
-		  <optional>true</optional>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		  <groupId>org.apache.struts.xwork</groupId>
-		  <artifactId>xwork-core</artifactId>
-		  <version>${struts2.version}</version>
-		  <optional>true</optional>
-		</dependency>	
-		<dependency>
-		  <groupId>org.apache.struts</groupId>
-		  <artifactId>struts2-core</artifactId>
-		  <version>${struts2.version}</version>
-		  <exclusions>
-			<exclusion>
-				<groupId>javax.servlet</groupId>                 
-				<artifactId>servlet-api</artifactId>
-			</exclusion>
-			<exclusion>
-				<groupId>javax.servlet</groupId>                 
-				<artifactId>jsp-api</artifactId>
-			</exclusion>
-		  </exclusions>
-		</dependency>	
-		<dependency>
-		  <groupId>org.aspectj</groupId>
-		  <artifactId>aspectjweaver</artifactId>
-		  <version>1.7.4</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.76</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-beans</artifactId>
-		  <version>${spring.version}</version>
+			<groupId>org.apache.struts.xwork</groupId>
+			<artifactId>xwork-core</artifactId>
+			<version>${struts2.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-context</artifactId>
-		  <version>${spring.version}</version>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>${struts2.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jsp-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-core</artifactId>
-		  <version>${spring.version}</version>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.4</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-web</artifactId>
-		  <version>${spring.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-webmvc</artifactId>
-		  <version>${spring.version}</version>
-		</dependency>		
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.20</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
   </dependencyManagement>
   

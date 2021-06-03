@@ -6,6 +6,7 @@ package com.giants.web.springmvc.advice;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.giants.common.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,8 @@ import com.giants.common.regex.Pattern;
 import com.giants.web.springmvc.json.JsonResult;
 import com.giants.web.springmvc.json.JsonpResult;
 
+import java.util.List;
+
 /**
  * @author vencent.lu
  *
@@ -36,6 +39,8 @@ public class JsonResultResponseAdvice implements ResponseBodyAdvice<Object> {
     private String[] jsonpQueryParamNames;
     
 	private ResourceBundleMessageSource resourceBundleMessageSource;
+
+	private List<String> uriExcludeList;
 		
 	@Override
 	public boolean supports(MethodParameter returnType,
@@ -55,14 +60,20 @@ public class JsonResultResponseAdvice implements ResponseBodyAdvice<Object> {
 					.getWebApplicationContext(servletRequest.getServletContext())
 					.getBean(ResourceBundleMessageSource.class);
 		}
-		JsonResult result = new JsonResult();
-		result.setData(body);
-		if (servletResponse.getStatus() == 200) {
-			result.setCode(GiantsConstants.ERROR_CODE_SUCCESS);
-			result.setMessage(this.resourceBundleMessageSource.getMessage("operation.success", null, servletRequest.getLocale()));
+		Object result = null;
+		if (CollectionUtils.isEmpty(this.uriExcludeList) || !this.uriExcludeList.contains(servletRequest.getRequestURI())) {
+			JsonResult jsonResult = new JsonResult();
+			jsonResult.setData(body);
+			if (servletResponse.getStatus() == 200) {
+				jsonResult.setCode(GiantsConstants.ERROR_CODE_SUCCESS);
+				jsonResult.setMessage(this.resourceBundleMessageSource.getMessage("operation.success", null, servletRequest.getLocale()));
+			} else {
+				jsonResult.setCode(GiantsConstants.ERROR_CODE_SYSTEM_ERROR);
+				jsonResult.setMessage(this.resourceBundleMessageSource.getMessage("operation.systemerror", null, servletRequest.getLocale()));
+			}
+			result = jsonResult;
 		} else {
-			result.setCode(GiantsConstants.ERROR_CODE_SYSTEM_ERROR);
-			result.setMessage(this.resourceBundleMessageSource.getMessage("operation.systemerror", null, servletRequest.getLocale()));
+			result = body;
 		}
 		if (ArrayUtils.isNotEmpty(this.jsonpQueryParamNames)) {
 		    for (String name : this.jsonpQueryParamNames) {
@@ -94,4 +105,7 @@ public class JsonResultResponseAdvice implements ResponseBodyAdvice<Object> {
         this.jsonpQueryParamNames = jsonpQueryParamNames;
     }
 
+	public void setUriExcludeList(List<String> uriExcludeList) {
+		this.uriExcludeList = uriExcludeList;
+	}
 }
