@@ -41,6 +41,7 @@ public class JsonExceptionResolver implements HandlerExceptionResolver {
     private String[] jsonpQueryParamNames;
 
     private boolean includeModelAndView = false;
+    private int responseExceptionStatus = 600;
     private List<HttpMessageConverter<Object>> messageConverters;
     private ResourceBundleMessageSource resourceBundleMessageSource;
 
@@ -68,7 +69,7 @@ public class JsonExceptionResolver implements HandlerExceptionResolver {
                             .getBean(ResourceBundleMessageSource.class);
                 }
                 Object result = ex;
-                response.setStatus(600);
+                response.setStatus(this.responseExceptionStatus);
                 HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
                 if (ArrayUtils.isNotEmpty(this.jsonpQueryParamNames)) {
                     for (String name : this.jsonpQueryParamNames) {
@@ -132,6 +133,10 @@ public class JsonExceptionResolver implements HandlerExceptionResolver {
 
     public void setMessageConverters(List<HttpMessageConverter<Object>> messageConverters) {
         this.messageConverters = messageConverters;
+    }
+
+    public void setResponseExceptionStatus(int responseExceptionStatus) {
+        this.responseExceptionStatus = responseExceptionStatus;
     }
 
     public void setJsonpQueryParamName(String jsonpQueryParamName) {
