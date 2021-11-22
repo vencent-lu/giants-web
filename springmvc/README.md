@@ -9,7 +9,7 @@ springmvc 工具封装组件
 
 配置参数:
 * uriExcludeList
-    * 类型：java.util.List<String>
+    * 类型：java.util.List\<String\>
     * 说明：排除URI列表，些列表中的请求，不会进行统一封装处理。
 
 #### com.giants.web.springmvc.aop.ControllerValidationAop
@@ -25,7 +25,7 @@ Controller 输入数据验证拦截器，配合 spring-modules-validation 框架
     * 类型：java.lang.String
     * 说明：数据验证失败提示信息 resource key。
 * dontThrowExceptionsReturnTypes
-    * 类型：java.util.List<String>
+    * 类型：java.util.List\<String\>
     * 说明：不需要抛异常的返回值类型列表，如 org.springframework.web.servlet.ModelAndView。
 
 #### com.giants.web.springmvc.json.FastJsonHttpMessageConverter
@@ -51,7 +51,7 @@ FastJson mvc 转换器，如果FastJson版本较底(如:1.2.22) 使用 FastJson 
 * dateFormat
     * 类型：java.lang.String
     * 说明：日期时间格式化
-    
+
 #### com.giants.web.springmvc.resolver.JsonExceptionResolver
 Exception 解析成JSON数据输出(实际上这里没有任何与JSON相关的处理，叫异常解析器 比较合适，后续改进)
 
@@ -68,9 +68,9 @@ Exception 解析成JSON数据输出(实际上这里没有任何与JSON相关的�
     * 默认值：600
     * 说明：http response 响应状态码
 * messageConverters
-    * 类型：java.util.List<org.springframework.http.converter.HttpMessageConverter<Object>>
+    * 类型：java.util.List\<org.springframework.http.converter.HttpMessageConverter\<Object\>\>
     * 说明：http输出信息转换器
-    
+
 #### com.giants.web.springmvc.resolver.JsonResultExceptionResolver
 Exception 解析成JsonResult对象
 
@@ -83,9 +83,9 @@ Exception 解析成JsonResult对象
     * 默认值：false
     * 说明：是否对ModelAndView返回值的 Controller 方法进行解析处理
 * messageConverters
-    * 类型：java.util.List<org.springframework.http.converter.HttpMessageConverter<Object>>
+    * 类型：java.util.List\<org.springframework.http.converter.HttpMessageConverter\<Object\>\>
     * 说明：http输出信息转换器
-    
+
 #### com.giants.web.springmvc.resolver.CookieHandlerMethodArgumentResolver
 
 Cookie 参数解析器，获取Cookie值，注入到 Controller 方法参数值。使用 Controller 代码与Cookie API 解耦。
@@ -94,7 +94,7 @@ Cookie 参数解析器，获取Cookie值，注入到 Controller 方法参数值�
 * cookieName
     * 类型：java.lang.String
     * 说明：cookie 名称 Controller 参数签名 与 cookie中参数签名一至
-    
+
 #### com.giants.web.springmvc.resolver.SessionHandlerMethodArgumentResolver
 
 Session 参数解析器，获取Session值，注入到 Controller 方法参数值。使用 Controller 代码与Session API 解耦。
@@ -103,7 +103,7 @@ Session 参数解析器，获取Session值，注入到 Controller 方法参数�
 * sessionAttribute
     * 类型：com.giants.web.springmvc.resolver.SessionAttribute
     * 说明：session属性配置，指定属性名称 及 session 对象类型
-    
+
 #### com.giants.web.springmvc.resolver.SessionArgumentResolver
 
 Session 参数解析器，适用于spring mvc 3.X 获取Session值，注入到 Controller 方法参数值。使用 Controller 代码与Session API 解耦。
@@ -112,19 +112,19 @@ Session 参数解析器，适用于spring mvc 3.X 获取Session值，注入到 C
 * sessionAttribute
     * 类型：com.giants.web.springmvc.resolver.SessionAttribute
     * 说明：session属性配置，指定属性名称 及 session 对象类型
-    
+
 #### com.giants.web.springmvc.v3.PackingJsonResultAnnotationMethodHandlerAdapter
 
 统一用 com.giants.web.springmvc.json.JsonResult 封装response返回结果,适用于spring mvc 3.X .
 
 配置参数：
 * jsonResultExcludeMethodList
-    * 类型：java.util.List<String>
+    * 类型：java.util.List\<String\>
     * 说明：排除不需要解析处理的 Controller方法
 * jsonResultExcludeReturnTypeList
-    * 类型：java.util.List<String>
+    * 类型：java.util.List\<String\>
     * 说明：排除不需要解析处理的 返回值类型
 * invokeInterceptors
-    * 类型：java.util.List<com.giants.web.springmvc.v3.MethodHandlerInterceptor>
-    * 默认值：new ArrayList<~>()
+    * 类型：java.util.List\<com.giants.web.springmvc.v3.MethodHandlerInterceptor\>
+    * 默认值：new ArrayList\<~\>()
     * 说明：方法执行拦截器
