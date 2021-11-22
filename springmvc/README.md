@@ -3,7 +3,7 @@
 
 springmvc 工具封装组件
 
-#### com.giants.web.springmvc.advice.JsonResultResponseAdvice
+## com.giants.web.springmvc.advice.JsonResultResponseAdvice
 
 统一用 com.giants.web.springmvc.json.JsonResult 封装response返回结果。
 
@@ -12,7 +12,7 @@ springmvc 工具封装组件
     * 类型：java.util.List\<String\>
     * 说明：排除URI列表，些列表中的请求，不会进行统一封装处理。
 
-#### com.giants.web.springmvc.aop.ControllerValidationAop
+## com.giants.web.springmvc.aop.ControllerValidationAop
 
 Controller 输入数据验证拦截器，配合 spring-modules-validation 框架一起使用, 当数据合法性检查不通过时 throw com.giants.common.exception
 .DataValidationException。
@@ -28,7 +28,7 @@ Controller 输入数据验证拦截器，配合 spring-modules-validation 框架
     * 类型：java.util.List\<String\>
     * 说明：不需要抛异常的返回值类型列表，如 org.springframework.web.servlet.ModelAndView。
 
-#### com.giants.web.springmvc.json.FastJsonHttpMessageConverter
+## com.giants.web.springmvc.json.FastJsonHttpMessageConverter
 
 FastJson mvc 转换器，如果FastJson版本较底(如:1.2.22) 使用 FastJson 自带的转换器，会出现一些兼容性问题，可以使用些转换器.
 
@@ -52,7 +52,7 @@ FastJson mvc 转换器，如果FastJson版本较底(如:1.2.22) 使用 FastJson 
     * 类型：java.lang.String
     * 说明：日期时间格式化
 
-#### com.giants.web.springmvc.resolver.JsonExceptionResolver
+## com.giants.web.springmvc.resolver.JsonExceptionResolver
 Exception 解析成JSON数据输出(实际上这里没有任何与JSON相关的处理，叫异常解析器 比较合适，后续改进)
 
 配置参数：
@@ -71,7 +71,7 @@ Exception 解析成JSON数据输出(实际上这里没有任何与JSON相关的�
     * 类型：java.util.List\<org.springframework.http.converter.HttpMessageConverter\<Object\>\>
     * 说明：http输出信息转换器
 
-#### com.giants.web.springmvc.resolver.JsonResultExceptionResolver
+## com.giants.web.springmvc.resolver.JsonResultExceptionResolver
 Exception 解析成JsonResult对象
 
 配置参数：
@@ -86,7 +86,7 @@ Exception 解析成JsonResult对象
     * 类型：java.util.List\<org.springframework.http.converter.HttpMessageConverter\<Object\>\>
     * 说明：http输出信息转换器
 
-#### com.giants.web.springmvc.resolver.CookieHandlerMethodArgumentResolver
+## com.giants.web.springmvc.resolver.CookieHandlerMethodArgumentResolver
 
 Cookie 参数解析器，获取Cookie值，注入到 Controller 方法参数值。使用 Controller 代码与Cookie API 解耦。
 
@@ -95,7 +95,7 @@ Cookie 参数解析器，获取Cookie值，注入到 Controller 方法参数值�
     * 类型：java.lang.String
     * 说明：cookie 名称 Controller 参数签名 与 cookie中参数签名一至
 
-#### com.giants.web.springmvc.resolver.SessionHandlerMethodArgumentResolver
+## com.giants.web.springmvc.resolver.SessionHandlerMethodArgumentResolver
 
 Session 参数解析器，获取Session值，注入到 Controller 方法参数值。使用 Controller 代码与Session API 解耦。
 
@@ -104,7 +104,7 @@ Session 参数解析器，获取Session值，注入到 Controller 方法参数�
     * 类型：com.giants.web.springmvc.resolver.SessionAttribute
     * 说明：session属性配置，指定属性名称 及 session 对象类型
 
-#### com.giants.web.springmvc.resolver.SessionArgumentResolver
+## com.giants.web.springmvc.resolver.SessionArgumentResolver
 
 Session 参数解析器，适用于spring mvc 3.X 获取Session值，注入到 Controller 方法参数值。使用 Controller 代码与Session API 解耦。
 
@@ -113,7 +113,7 @@ Session 参数解析器，适用于spring mvc 3.X 获取Session值，注入到 C
     * 类型：com.giants.web.springmvc.resolver.SessionAttribute
     * 说明：session属性配置，指定属性名称 及 session 对象类型
 
-#### com.giants.web.springmvc.v3.PackingJsonResultAnnotationMethodHandlerAdapter
+## com.giants.web.springmvc.v3.PackingJsonResultAnnotationMethodHandlerAdapter
 
 统一用 com.giants.web.springmvc.json.JsonResult 封装response返回结果,适用于spring mvc 3.X .
 
