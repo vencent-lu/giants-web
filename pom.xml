@@ -110,7 +110,7 @@
 
     <!-- 依赖库版本定义 -->
 	<struts2.version>2.3.34</struts2.version>
-	<spring.version>4.3.20.RELEASE</spring.version>
+	<spring.version>6.0.0</spring.version>
         
     <!-- Plugin的属性定义 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
