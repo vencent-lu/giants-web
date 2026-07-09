@@ -152,4 +152,4 @@ Session 参数解析器，适用于 Spring MVC 3.X。获取 Session 值注入到
 
 ---
 
-更多完整的配置与示例，请查看 [使用手册](../docs/usage-manual.md#module-springmvc)。
+更多完整的配置与示例，请查看 [使用手册](../docs/使用手册.md#三giants-web-springmvc-模块)。

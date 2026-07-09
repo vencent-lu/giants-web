@@ -80,4 +80,4 @@ Struts2 环境下的请求上下文工具类，基于 `ActionContext` / `Servlet
 
 ---
 
-更多完整的拦截器栈配置与示例，请查看 [使用手册](../docs/usage-manual.md#module-struts2)。
+更多完整的拦截器栈配置与示例，请查看 [使用手册](../docs/使用手册.md#四giants-web-struts2-模块)。
