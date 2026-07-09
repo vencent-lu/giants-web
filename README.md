@@ -89,7 +89,7 @@ HttpServletRequest request = com.giants.web.utils.WebUtils.getRequest();
 String ip = com.giants.web.utils.WebUtils.getIpAddress();
 ```
 
-更多用法（Spring MVC 统一响应配置、Struts2 拦截器栈配置等）见 **[使用手册](docs/usage-manual.md)**。
+更多用法（Spring MVC 统一响应配置、Struts2 拦截器栈配置等）见 **[使用手册](docs/使用手册.md)**。
 
 ## 统一响应结构（JsonResult）
 
